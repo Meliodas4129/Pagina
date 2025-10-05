@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .contenedor-principal {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .contenido {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .caja-formulario {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .caja-formulario h2 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .campo input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .campo input.invalido {
+            border-color: #e74c3c;
+        }
+
+        .mensaje-error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .mensaje-error.visible {
+            display: block;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-enviar:hover {
+            background-color: #2980b9;
+        }
+
+        .caja-resultado {
+            background-color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            width: 50%;
+            border: 3px solid #27ae60;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            display: none;
+            position: relative;
+        }
+
+        .caja-resultado.visible {
+            display: block;
+        }
+
+        .caja-resultado h2 {
+            color: #27ae60;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .dato {
+            background-color: white;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .dato .etiqueta {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .dato .valor {
+            color: #34495e;
+            margin-left: 8px;
+        }
+
+        .btn-cerrar {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-cerrar:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .contenido {
+                flex-direction: column;
+            }
+
+            .caja-formulario,
+            .caja-resultado {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <h1>Registro de Usuarios</h1>
+        
+        <div class="contenido">
+            <div class="caja-formulario">
+                <h2>Datos Personales</h2>
+                <form id="miFormulario">
+                    <div class="campo">
+                        <label for="txtNombre">Nombre:</label>
+                        <input type="text" id="txtNombre" placeholder="Escribe tu nombre">
+                        <div class="mensaje-error" id="errorNom">Por favor ingresa tu nombre</div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="txtApellidos">Apellidos:</label>
+                        <input type="text" id="txtApellidos" placeholder="Escribe tus apellidos">
+                        <div class="mensaje-error" id="errorApe">Por favor ingresa tus apellidos</div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="txtEdad">Edad:</label>
+                        <input type="number" id="txtEdad" placeholder="Escribe tu edad">
+                        <div class="mensaje-error" id="errorEdad">La edad debe ser mayor a 0</div>
+                    </div>
+
+                    <button type="submit" class="btn-enviar">Enviar Datos</button>
+                </form>
+            </div>
+
+            <div class="caja-resultado" id="cajaResultado">
+                <button class="btn-cerrar" id="btnCerrar">X</button>
+                <h2>Información Registrada</h2>
+                <div class="dato">
+                    <span class="etiqueta">Nombre:</span>
+                    <span class="valor" id="mostrarNombre"></span>
+                </div>
+                <div class="dato">
+                    <span class="etiqueta">Apellidos:</span>
+                    <span class="valor" id="mostrarApellidos"></span>
+                </div>
+                <div class="dato">
+                    <span class="etiqueta">Edad:</span>
+                    <span class="valor" id="mostrarEdad"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scrip.js">    </script>
+</body>
+</html>
